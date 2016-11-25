@@ -11,12 +11,23 @@ public class Arduino {
 
   public void comunicacaoArduino(Message message) {        
     if(message.getComando() == TipoComando.LAMPADA){
-      arduino.enviaDados(message.getValor());
-      System.out.println(message.getValor());
+    	if (message.getValor() == 1){
+    		arduino.enviaDados(1);
+    		System.out.println(message.getValor());
+    	}else if(message.getValor() == 0){
+    		arduino.enviaDados(2);
+    		System.out.println(message.getValor());
+    	}
     }
-    else{
-      arduino.close();
-      System.out.println("Fechado");
+    else if (message.getComando() == TipoComando.ALARME){
+    	if(message.getValor() == 1){
+    		arduino.enviaDados(3);
+    		System.out.println(message.getValor());
+    	}else if (message.getValor() == 0){
+    		arduino.enviaDados(4);
+    		System.out.println(message.getValor());
+    	}
     }
+    arduino.close();
   }
 }

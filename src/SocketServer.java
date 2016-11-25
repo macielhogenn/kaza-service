@@ -1,11 +1,6 @@
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Date;
-
-import com.sun.istack.internal.logging.Logger;
 
 import br.com.socket.Message;
 import br.com.socket.TipoComando;
@@ -28,7 +23,9 @@ public class SocketServer {
 		        saida.writeObject(message);
 		        saida.close();
 		        cliente.close();
-		      }  
+		        Arduino arduino = new Arduino();
+		    	arduino.comunicacaoArduino(message);
+		      }
 		    }   
 		    catch(Exception e) {
 		       System.out.println("Erro: " + e.getMessage());
