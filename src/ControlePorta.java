@@ -31,8 +31,9 @@ public class ControlePorta {
         portId = CommPortIdentifier.getPortIdentifier(this.portaCOM);
       }catch (NoSuchPortException npe) {
         //Caso a porta COM não exista será exibido um erro 
-        JOptionPane.showMessageDialog(null, "Porta COM não encontrada.",
-                  "Porta COM", JOptionPane.PLAIN_MESSAGE);
+        //JOptionPane.showMessageDialog(null, "Porta COM não encontrada.",
+                  //"Porta COM", JOptionPane.PLAIN_MESSAGE);
+    	  System.out.println("Porta COM nao encontrada");
       }
       //Abre a porta COM 
       SerialPort port = (SerialPort) portId.open("Comunicação serial", this.taxa);
@@ -42,7 +43,7 @@ public class ControlePorta {
                                SerialPort.STOPBITS_1, //taxa de 10 bits 1 (recebimento)
                                SerialPort.PARITY_NONE); //receber e enviar dados
     }catch (Exception e) {
-      e.printStackTrace();
+      //e.printStackTrace();
     }
 }
 
@@ -58,6 +59,8 @@ public class ControlePorta {
   public void enviaDados(int opcao){
     try {
       serialOut.write(opcao);//escreve o valor na porta serial para ser enviado
+      serialOut.flush();
+      serialOut.close();
     } catch (IOException ex) {
         JOptionPane.showMessageDialog(null, "Não foi possível enviar o dado. ",
                 "Enviar dados", JOptionPane.PLAIN_MESSAGE);
